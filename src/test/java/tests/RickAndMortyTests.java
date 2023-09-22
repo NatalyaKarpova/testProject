@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import steps.RickAndMortySteps;
 
-import java.util.List;
 
 public class RickAndMortyTests {
     private RickAndMortySteps rickAndMortySteps;
