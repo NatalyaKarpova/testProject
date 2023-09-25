@@ -1,5 +1,6 @@
 package tests;
 
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -16,9 +17,17 @@ public class RickAndMortyTests {
 
     @Test(description = "Успешное получение эпизодов для Морти")
     void successGetMortyEpisodesTest() {
-        String location = rickAndMortySteps.getCharacterLocation(2);
-        String species = rickAndMortySteps.getCharacterSpecies(2);
-        Assert.assertEquals(location, "Citadel of Ricks","Локация не совпадает");
-        Assert.assertEquals(species, "Human", "Раса не совпадает");
+        Response mortyResponse = rickAndMortySteps.getCharacterResponse(2);
+        String mortyLocation = mortyResponse.jsonPath().getString("location.name");
+        String mortySpecies = mortyResponse.jsonPath().getString("spesies");
+
+        int lastCharacterId = rickAndMortySteps.getLastCharacterId(2);
+        Response lastCharacterResponse = rickAndMortySteps.getCharacterResponse(lastCharacterId);
+        String lastCharacterLocation = lastCharacterResponse.jsonPath().getString("location.name");
+        String lastCharacterSpecies = lastCharacterResponse.jsonPath().getString("species");
+
+
+        Assert.assertEquals(lastCharacterLocation, mortyLocation,"Локация не совпадает");
+        Assert.assertEquals(lastCharacterLocation, mortySpecies, "Раса не совпадает");
     }
 }
