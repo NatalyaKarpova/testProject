@@ -20,6 +20,7 @@ public class RickAndMortyTests {
         Response mortyResponse = rickAndMortySteps.getCharacterResponse(2);
         String mortyLocation = mortyResponse.jsonPath().getString("location.name");
         String mortySpecies = mortyResponse.jsonPath().getString("spesies");
+        
 
         int lastCharacterId = rickAndMortySteps.getLastCharacterId(2);
         Response lastCharacterResponse = rickAndMortySteps.getCharacterResponse(lastCharacterId);
@@ -28,6 +29,6 @@ public class RickAndMortyTests {
 
 
         Assert.assertEquals(lastCharacterLocation, mortyLocation,"Локация не совпадает");
-        Assert.assertEquals(lastCharacterLocation, mortySpecies, "Раса не совпадает");
+        Assert.assertEquals(lastCharacterSpecies, mortySpecies, "Раса не совпадает");
     }
 }
