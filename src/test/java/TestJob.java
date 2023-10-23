@@ -1,10 +1,19 @@
-
+import io.qameta.allure.*;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+@Epic("Api тесты")
+@Feature("TestJob тесты")
+@Story("POST client")
 public class TestJob {
     private Calculator calculator;
 
+    @BeforeClass(description = "Добавляем фильтр Allure для RestAssured", alwaysRun = true)
+    void addFilters() {
+        RestAssured.filters(new AllureRestAssured());
+    }
 
     @BeforeClass(alwaysRun = true)
     void beforeClass() {
@@ -22,7 +31,7 @@ public class TestJob {
         System.out.println("Выполняется после всех тестов!");
     }
 
-    @Test (description = "Проверка сложения")
+    @Test(description = "Проверка сложения")
     void testAddition() {
         int result = calculator.add(5, 2);
         Assert.assertEquals(7, result, "Успех");
@@ -38,7 +47,7 @@ public class TestJob {
     @Test(description = "Проверка умножения")
     void testMultiplication() {
         int result = calculator.multiply(5, 2);
-        Assert.assertEquals(10, result,"Успех");
+        Assert.assertEquals(10, result, "Успех");
     }
 
     @Test(description = "Проверка деления")

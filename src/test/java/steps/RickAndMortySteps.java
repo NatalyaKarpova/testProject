@@ -1,5 +1,6 @@
 package steps;
 
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -10,6 +11,7 @@ import static io.restassured.RestAssured.given;
 public class RickAndMortySteps {
     private final RequestSpecification rickSpecification = new RequestSpecBuilder().setBaseUri("https://rickandmortyapi.com/api").build();
 
+    @Step("Получаем тело запроса для заданного персонажа")
     public Response getCharacterResponse(int characterId) {
         return given()
                 .spec(rickSpecification)
@@ -22,6 +24,7 @@ public class RickAndMortySteps {
                 .response();
     }
 
+    @Step("Получаем id последнего персонажа из последнего эпизода")
     public int getLastCharacterId(int characterId) {
         int lastEpisodeId = getCharacterResponse(characterId).jsonPath().getList("episode").size() - 1;
         Response lastEpisodeResponse = given()
